@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<!--
+   SPDX-License-Identifier: CC-BY-4.0
+
+   Copyright 2023-2023 The RAGe Authors
+
+   This work is licensed under the Creative Commons Attribution 4.0
+   International License.
+
+   You should have received a copy of the license along with this
+   work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
+-->
+<register-automaton>
+  <alphabet>
+    <inputs>
+      <symbol name="I_simple" />
+      <symbol name="I_parameterized">
+        <param name="pi_0" type="int" />
+        <param name="pi_1" type="int" />
+      </symbol>
+    </inputs>
+    <outputs>
+      <symbol name="O_simple" />
+      <symbol name="O_parameterized">
+        <param name="po_0" type="int" />
+        <param name="po_1" type="int" />
+      </symbol>
+    </outputs>
+  </alphabet>
+  <constants>
+    <constant name="C_1000" type="int">1000</constant>
+  </constants>
+  <globals>
+    <variable name="x_0" type="int">0</variable>
+    <variable name="x_1" type="int">0</variable>
+  </globals>
+  <locations>
+    <location initial="true" name="q_0" />
+    <location name="q_1" />
+    <location name="q_2" />
+    <location name="q_3" />
+  </locations>
+  <transitions>
+    <transition from="q_0" symbol="I_simple" to="q_1" />
+    <transition from="q_0" params="a,b" symbol="I_parameterized" to="q_1">
+      <guard>(((a == b) &amp;&amp; (a != 1000)) || (a &gt;= x_0))</guard>
+      <assignments>
+        <assign to="x_0">a</assign>
+        <assign to="x_1">1000</assign>
+      </assignments>
+    </transition>
+    <transition from="q_1" params="x,y" symbol="O_parameterized" to="q_2">
+      <guard>(x &lt; y)</guard>
+    </transition>
+    <transition from="q_2" symbol="O_simple" to="q_3" />
+  </transitions>
+</register-automaton>

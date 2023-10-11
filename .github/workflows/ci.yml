@@ -36,7 +36,7 @@ jobs:
     name: "Gradle Wrapper Validation"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: gradle/wrapper-validation-action@v1
 
   detekt:
@@ -44,7 +44,7 @@ jobs:
     needs: validate-gradle
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required for version number generation
       - uses: actions/setup-java@v3
@@ -64,7 +64,7 @@ jobs:
     needs: validate-gradle
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required for version number generation
       - uses: actions/setup-java@v3
@@ -93,7 +93,7 @@ jobs:
     needs: validate-gradle
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required for version number generation
       - uses: actions/setup-java@v3
@@ -116,7 +116,7 @@ jobs:
     needs: validate-gradle
     runs-on: ubuntu-20.04 # run with older glibc
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required for version number generation
       - uses: actions/setup-java@v3
@@ -148,7 +148,7 @@ jobs:
     needs: validate-gradle
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required for version number generation
       - uses: actions/setup-java@v3
@@ -179,7 +179,7 @@ jobs:
     needs: validate-gradle
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required for version number generation
       - uses: actions/setup-java@v3

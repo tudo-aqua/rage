@@ -25,7 +25,6 @@ import org.gradle.api.publish.plugins.PublishingPlugin.PUBLISH_TASK_GROUP
 import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
-import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentOperatingSystem
 
 plugins {
   `java-library`
@@ -213,7 +212,6 @@ runtime {
         listOf(versionFragments.first().coerceAtLeast(1)) +
             versionFragments.subList(1, versionFragments.size).take(2)
     appVersion = appVersionFragments.joinToString(".")
-    if (getCurrentOperatingSystem().isWindows) installerOptions = listOf("--win-console")
   }
 }
 

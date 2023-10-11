@@ -127,7 +127,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - name: "Run JUnit Tests"
+      - name: "Run JPackage"
         uses: gradle/gradle-build-action@v2
         with:
           arguments: jpackage

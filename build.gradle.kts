@@ -26,7 +26,6 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentOperatingSystem
-import org.jetbrains.kotlin.cli.common.isWindows
 
 plugins {
   `java-library`
@@ -208,7 +207,12 @@ application {
 runtime {
   modules = listOf("java.base", "java.logging", "java.management", "java.xml")
   jpackage {
-    appVersion = project.version.toString().replace("-", ".")
+    val versionFragments =
+        project.version.toString().split('-', limit = 2).first().split('.').map { it.toInt() }
+    val appVersionFragments =
+        listOf(versionFragments.first().coerceAtLeast(1)) +
+            versionFragments.subList(1, versionFragments.size).take(2)
+    appVersion = appVersionFragments.joinToString(".")
     if (getCurrentOperatingSystem().isWindows) installerOptions = listOf("--win-console")
   }
 }

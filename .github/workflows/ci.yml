@@ -111,14 +111,10 @@ jobs:
           files: "build/test-results/test/TEST-*.xml"
           comment_mode: off
 
-  jpackage:
-    name: "JPackage"
+  jpackage-linux:
+    name: "JPackage for Linux"
     needs: validate-gradle
-    strategy:
-      matrix:
-        # run with older glibc on ubuntu
-        os: [macos-latest, ubuntu-20.04, windows-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-20.04 # run with older glibc
     steps:
       - uses: actions/checkout@v3
         with:
@@ -134,11 +130,77 @@ jobs:
       - name: "Publish distribution"
         uses: actions/upload-artifact@v3
         with:
-          name: distribution-${{ matrix.os }}
+          name: distribution-linux
           path: build/jpackage/rage
+          if-no-files-found: error
       - name: "Publish installers"
         uses: actions/upload-artifact@v3
         with:
-          name: installer-${{ matrix.os }}
+          name: installer-linux
+          # note deb uses underscore to separate the version!
           path: |
-            build/jpackage/rage*.*
+            build/jpackage/rage_*.deb
+            build/jpackage/rage-*.rpm
+          if-no-files-found: error
+
+  jpackage-macos:
+    name: "JPackage for Mac OS"
+    needs: validate-gradle
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Required for version number generation
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: "Run JPackage"
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: jpackage
+      - name: "Publish distribution"
+        uses: actions/upload-artifact@v3
+        with:
+          name: distribution-macos
+          path: build/jpackage/rage.app
+          if-no-files-found: error
+      - name: "Publish installers"
+        uses: actions/upload-artifact@v3
+        with:
+          name: installer-macos
+          path: |
+            build/jpackage/rage-*.dmg
+            build/jpackage/rage-*.pkg
+          if-no-files-found: error
+
+  jpackage-windows:
+    name: "JPackage for Windows"
+    needs: validate-gradle
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Required for version number generation
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: "Run JPackage"
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: jpackage
+      - name: "Publish distribution"
+        uses: actions/upload-artifact@v3
+        with:
+          name: distribution-windows
+          path: build/jpackage/rage
+          if-no-files-found: error
+      - name: "Publish installers"
+        uses: actions/upload-artifact@v3
+        with:
+          name: installer-windows
+          path: |
+            build/jpackage/rage-*.exe
+            build/jpackage/rage-*.msi
+          if-no-files-found: error

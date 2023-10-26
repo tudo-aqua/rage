@@ -93,7 +93,7 @@ dependencies {
 
 node {
   download = true
-  version = libs.versions.nodejs.get()
+  version = libs.versions.nodejs
   workDir = layout.buildDirectory.dir("nodejs")
 }
 

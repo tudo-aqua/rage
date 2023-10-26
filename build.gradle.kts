@@ -17,7 +17,6 @@
  */
 
 import com.diffplug.spotless.npm.PrettierFormatterStep.DEFAULT_VERSION as PRETTIER_DEFAULT_VERSION
-import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import com.github.gradle.node.variant.computeNodeDir
 import com.github.gradle.node.variant.computeNodeExec
 import org.gradle.api.plugins.JavaBasePlugin.DOCUMENTATION_GROUP
@@ -98,15 +97,16 @@ node {
   workDir = layout.buildDirectory.dir("nodejs")
 }
 
-fun isNonStable(version: String): Boolean {
-  val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
-  val regex = "^[0-9,.v-]+(-r)?$".toRegex()
-  val isStable = stableKeyword || regex.matches(version)
-  return isStable.not()
-}
-
-tasks.withType<DependencyUpdatesTask> {
+tasks.dependencyUpdates {
   gradleReleaseChannel = "current"
+  revision = "release"
+
+  fun isNonStable(version: String): Boolean {
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+    val isStable = stableKeyword || regex.matches(version)
+    return isStable.not()
+  }
   rejectVersionIf { isNonStable(candidate.version) && !isNonStable(currentVersion) }
 }
 

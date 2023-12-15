@@ -128,13 +128,13 @@ jobs:
         with:
           arguments: jpackage
       - name: "Publish distribution"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: distribution-linux
           path: build/jpackage/rage
           if-no-files-found: error
       - name: "Publish installers"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: installer-linux
           # note deb uses underscore to separate the version!
@@ -160,13 +160,13 @@ jobs:
         with:
           arguments: jpackage
       - name: "Publish distribution"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: distribution-macos
           path: build/jpackage/rage.app
           if-no-files-found: error
       - name: "Publish installers"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: installer-macos
           path: |
@@ -191,13 +191,13 @@ jobs:
         with:
           arguments: jpackage
       - name: "Publish distribution"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: distribution-windows
           path: build/jpackage/rage
           if-no-files-found: error
       - name: "Publish installers"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: installer-windows
           path: |

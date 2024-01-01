@@ -36,7 +36,7 @@ taskTree = { id = "com.dorongold.task-tree", version = "2.1.1" }
 versions = { id = "com.github.ben-manes.versions", version = "0.50.0" }
 
 [libraries]
-assertj = { group = "org.assertj", name = "assertj-core", version = "3.24.2" }
+assertj = { group = "org.assertj", name = "assertj-core", version = "3.25.0" }
 clikt = { group = "com.github.ajalt.clikt", name = "clikt", version = "4.2.1" }
 jline = { group = "org.jline", name = "jline-terminal-jansi", version = "3.24.1" }
 junit-bom = { group = "org.junit", name = "junit-bom", version = "5.10.1" }

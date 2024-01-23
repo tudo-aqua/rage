@@ -33,7 +33,7 @@ node = { id = "com.github.node-gradle.node", version = "7.0.1" }
 runtime = { id = "org.beryx.runtime", version = "1.13.0" }
 spotless = { id = "com.diffplug.spotless", version = "6.23.3" }
 taskTree = { id = "com.dorongold.task-tree", version = "2.1.1" }
-versions = { id = "com.github.ben-manes.versions", version = "0.50.0" }
+versions = { id = "com.github.ben-manes.versions", version = "0.51.0" }
 
 [libraries]
 assertj = { group = "org.assertj", name = "assertj-core", version = "3.25.1" }
